@@ -1,0 +1,13 @@
+version: "3"
+services:
+  user_service:
+    build: ./
+    container_name: User_service_dev
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
