@@ -29,7 +29,7 @@ const createCustomer = async (userData) => {
       body: newCustomer,
     });
 
-    return { status: "OK", message: "New customer created" };
+    return { response };
   } catch (error) {
     return { error };
   }
