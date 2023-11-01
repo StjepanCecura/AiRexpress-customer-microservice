@@ -1,15 +1,12 @@
 const { client } = require("../utils/commercetools.js");
-const bcrypt = require("bcrypt");
 
 const createCustomer = async (userData) => {
   try {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-
     const newCustomer = {
       firstName: userData.name,
-      lastName: userData.lastName,
+      lastName: userData.lastname,
       email: userData.email,
-      password: hashedPassword,
+      password: userData.password,
       custom: {
         type: {
           key: "customer-phone",
@@ -29,7 +26,7 @@ const createCustomer = async (userData) => {
       body: newCustomer,
     });
 
-    return { response };
+    return { status: "OK", message: "New customer created" };
   } catch (error) {
     return { error };
   }
