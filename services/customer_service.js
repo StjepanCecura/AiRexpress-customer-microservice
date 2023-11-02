@@ -9,12 +9,15 @@ const createCustomer = async (userData) => {
       password: userData.password,
       custom: {
         type: {
-          key: "customer-phone",
+          key: "customer-custom-fields",
           typeId: "type",
         },
         fields: {
-          phone: {
+          phoneNumber: {
             en: userData.phone,
+          },
+          emailVerified: {
+            en: "false",
           },
         },
       },
@@ -25,6 +28,8 @@ const createCustomer = async (userData) => {
       uri: "/airtim1-webshop-i-cms/customers",
       body: newCustomer,
     });
+
+    console.log(response);
 
     return { status: "OK", message: "New customer created" };
   } catch (error) {
