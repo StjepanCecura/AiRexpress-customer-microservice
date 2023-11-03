@@ -14,7 +14,6 @@ const createCustomer = async (userData) => {
         },
         fields: {
           phoneNumber: userData.phone,
-          emailVerified: "false",
         },
       },
     };
@@ -58,25 +57,27 @@ const createCustomer = async (userData) => {
 };
 
 const verifyCustomer = async (customerId) => {
-  const updateData = {
-    version: 1,
-    actions: [
-      {
-        action: "setCustomField",
-        name: "emailVerified",
-        value: "true",
-      },
-    ],
+  const data = {
+    id: customerId,
+    ttlMinutes: 5000,
   };
 
   try {
-    const response = await client.execute({
+    const tokenResponse = await client.execute({
       method: "POST",
-      uri: `/airtim1-webshop-i-cms/customers/${customerId}`,
-      body: updateData,
+      uri: `/airtim1-webshop-i-cms/customers/email-token`,
+      body: data,
     });
 
-    return response;
+    const emailVerificationToken = tokenResponse.body.value;
+
+    const verificationResponse = await client.execute({
+      method: "POST",
+      uri: `/airtim1-webshop-i-cms/customers/email/confirm`,
+      body: { tokenValue: emailVerificationToken },
+    });
+
+    return verificationResponse;
   } catch (error) {
     return error;
   }
