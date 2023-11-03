@@ -31,7 +31,7 @@ const createCustomer = async (userData) => {
       from: "airexpress@gmail.com",
       to: userData.email,
       subject: "Mail verification",
-      html: `<p>To verify you email address, click on the following link: <a href='http://localhost:3000/customer/email-verification/${customerId}'>http://localhost:3000/customer/email-verification/${customerId}</a></p>`,
+      html: `<p>To verify you email address, click on the following link: <a href='http://localhost:3000/email-verification/${customerId}'>http://localhost:3000/email-verification/${customerId}</a></p>`,
     };
 
     fetch("http://mail_service:4003", {
@@ -77,7 +77,9 @@ const verifyCustomer = async (customerId) => {
       body: { tokenValue: emailVerificationToken },
     });
 
-    return verificationResponse;
+    return {
+      isEmailVerified: verificationResponse.body.isEmailVerified == true,
+    };
   } catch (error) {
     return error;
   }
