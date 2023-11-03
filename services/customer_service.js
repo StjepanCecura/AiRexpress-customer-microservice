@@ -13,12 +13,8 @@ const createCustomer = async (userData) => {
           typeId: "type",
         },
         fields: {
-          phoneNumber: {
-            en: userData.phone,
-          },
-          emailVerified: {
-            en: "false",
-          },
+          phoneNumber: userData.phone,
+          emailVerified: "false",
         },
       },
     };
@@ -29,12 +25,61 @@ const createCustomer = async (userData) => {
       body: newCustomer,
     });
 
-    console.log(response);
+    const customerId = response.body.customer.id;
+    console.log(`Sending email to ${userData.email}`);
+
+    const mailOptions = {
+      from: "airexpress@gmail.com",
+      to: userData.email,
+      subject: "Mail verification",
+      html: `<p>To verify you email address, click on the following link: <a href='http://localhost:3000/customer/email-verification/${customerId}'>http://localhost:3000/customer/email-verification/${customerId}</a></p>`,
+    };
+
+    fetch("http://mail_service:4003", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(mailOptions),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.log(error));
 
     return { status: "OK", message: "New customer created" };
   } catch (error) {
-    return { error };
+    console.log("Error creating new customer!");
+    return {
+      error,
+    };
   }
 };
 
-module.exports = { createCustomer };
+const verifyCustomer = async (customerId) => {
+  const updateData = {
+    version: 1,
+    actions: [
+      {
+        action: "setCustomField",
+        name: "emailVerified",
+        value: "true",
+      },
+    ],
+  };
+
+  try {
+    const response = await client.execute({
+      method: "POST",
+      uri: `/airtim1-webshop-i-cms/customers/${customerId}`,
+      body: updateData,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = { createCustomer, verifyCustomer };

@@ -1,7 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const { createCustomer } = require("./services/customer_service.js");
+const {
+  createCustomer,
+  verifyCustomer,
+} = require("./services/customer_service.js");
 
 dotenv.config();
 
@@ -10,6 +13,12 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
+
+app.put(`/email-verification`, async (req, res) => {
+  const customerId = req.body.id;
+  const response = await verifyCustomer(customerId);
+  res.send(response);
+});
 
 app.post("/", async (req, res) => {
   const userData = req.body;
