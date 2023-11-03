@@ -1,8 +1,8 @@
 version: "3"
 services:
-  user_service:
+  customer_service:
     build: ./
-    container_name: User_service_dev
+    container_name: customer_service_dev
     volumes:
       - ./:/app
       - /app/node_modules
