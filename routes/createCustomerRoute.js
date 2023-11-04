@@ -1,6 +1,8 @@
 const { client } = require("../utils/commercetools.js");
 
-const createCustomer = async (userData) => {
+module.exports = async (req, res) => {
+  const userData = req.body;
+
   try {
     const newCustomer = {
       firstName: userData.name,
@@ -47,42 +49,11 @@ const createCustomer = async (userData) => {
       })
       .catch((error) => console.log(error));
 
-    return { status: "OK", message: "New customer created" };
+    res.send({ status: "OK", message: "New customer created" });
   } catch (error) {
     console.log("Error creating new customer!");
-    return {
+    res.send({
       error,
-    };
+    });
   }
 };
-
-const verifyCustomer = async (customerId) => {
-  const data = {
-    id: customerId,
-    ttlMinutes: 5000,
-  };
-
-  try {
-    const tokenResponse = await client.execute({
-      method: "POST",
-      uri: `/airtim1-webshop-i-cms/customers/email-token`,
-      body: data,
-    });
-
-    const emailVerificationToken = tokenResponse.body.value;
-
-    const verificationResponse = await client.execute({
-      method: "POST",
-      uri: `/airtim1-webshop-i-cms/customers/email/confirm`,
-      body: { tokenValue: emailVerificationToken },
-    });
-
-    return {
-      isEmailVerified: verificationResponse.body.isEmailVerified == true,
-    };
-  } catch (error) {
-    return error;
-  }
-};
-
-module.exports = { createCustomer, verifyCustomer };
