@@ -80,6 +80,12 @@ web_modules/
 .next
 out
 
+# env
+.env
+.env.dev
+.env.prod
+.env.local
+
 # Nuxt.js build / generate output
 .nuxt
 dist
