@@ -49,11 +49,11 @@ module.exports = async (req, res) => {
       })
       .catch((error) => console.log(error));
 
-    res.send({ status: "OK", message: "New customer created" });
+    res.status(200).send({ message: "New customer created" });
   } catch (error) {
     console.log("Error creating new customer!");
-    res.send({
-      error,
+    res.status(503).send({
+      message: error,
     });
   }
 };

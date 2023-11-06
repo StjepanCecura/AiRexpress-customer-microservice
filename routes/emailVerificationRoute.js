@@ -23,10 +23,10 @@ module.exports = async (req, res) => {
       body: { tokenValue: emailVerificationToken },
     });
 
-    res.send({
+    res.status(200).send({
       isEmailVerified: verificationResponse.body.isEmailVerified == true,
     });
   } catch (error) {
-    res.send({ error: error });
+    res.status(400).send({ isEmailVerified: false, message: error });
   }
 };
