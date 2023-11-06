@@ -22,10 +22,9 @@ module.exports = async (req, res) => {
       httpOnly: true,
     });
 
-    res.send({ status: 200, message: "OK!" });
+    res.status(200).send({ message: "OK!" });
   } catch (error) {
-    res.send({
-      status: 400,
+    res.status(401).send({
       message: "Account with the given credentials not found!",
     });
     return;
