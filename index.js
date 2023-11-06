@@ -11,7 +11,8 @@ const app = express();
 const port = process.env.PORT;
 
 const corsOptions = {
-  "Access-Control-Allow-Origin": true,
+  origin: true,
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
