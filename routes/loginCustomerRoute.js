@@ -16,6 +16,12 @@ module.exports = async (req, res) => {
       body: userData,
     });
 
+    if (response.body.customer.isEmailVerified === false) {
+      res.status(406).send({
+        message: "Email not verified!",
+      });
+      return;
+    }
     const token = jwt.sign(response.body.customer, jwtSecret, {
       expiresIn: "2h",
     });
@@ -27,8 +33,7 @@ module.exports = async (req, res) => {
     res.status(200).send({ message: "Login successful!" });
   } catch (error) {
     res.status(401).send({
-      message:
-        "Account with the given credentials not found or your email is not verified!",
+      message: "Account with the given credentials not found!",
     });
     return;
   }
