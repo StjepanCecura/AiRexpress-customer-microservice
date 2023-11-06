@@ -7,6 +7,7 @@ const createCustomerRoute = require("./routes/createCustomerRoute.js");
 const loginCustomerRoute = require("./routes/loginCustomerRoute.js");
 const JWTMiddleware = require("./middlewares/JWTMiddleware.js");
 const profileRoute = require("./routes/profileRoute.js");
+const signOutRoute = require("./routes/signOutRoute.js");
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", JWTMiddleware, profileRoute);
+app.get("/sign-out", JWTMiddleware, signOutRoute);
 
 app.post("/register", createCustomerRoute);
 app.post("/login", loginCustomerRoute);
