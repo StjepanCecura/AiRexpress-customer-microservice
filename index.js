@@ -1,9 +1,12 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const emailVerificationRoute = require("./routes/emailVerificationRoute.js");
 const createCustomerRoute = require("./routes/createCustomerRoute.js");
 const loginCustomerRoute = require("./routes/loginCustomerRoute.js");
+const JWTMiddleware = require("./middlewares/JWTMiddleware.js");
+const profileRoute = require("./routes/profileRoute.js");
 
 dotenv.config();
 
@@ -15,11 +18,15 @@ const corsOptions = {
   credentials: true,
 };
 
+app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
 
+app.get("/", JWTMiddleware, profileRoute);
+
 app.post("/register", createCustomerRoute);
 app.post("/login", loginCustomerRoute);
+
 app.put(`/email-verification`, emailVerificationRoute);
 
 app.listen(port, () => {

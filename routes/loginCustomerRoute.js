@@ -16,7 +16,9 @@ module.exports = async (req, res) => {
       body: userData,
     });
 
-    const token = jwt.sign(response, jwtSecret, { expiresIn: "2h" });
+    const token = jwt.sign(response.body.customer, jwtSecret, {
+      expiresIn: "2h",
+    });
 
     res.cookie("token", token, {
       httpOnly: true,
