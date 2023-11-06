@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
       httpOnly: true,
     });
 
-    res.redirect("/");
+    res.send({ status: 200, message: "OK!" });
   } catch (error) {
     res.send({
       status: 400,
