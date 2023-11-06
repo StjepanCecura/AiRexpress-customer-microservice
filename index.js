@@ -10,7 +10,11 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors());
+const corsOptions = {
+  "Access-Control-Allow-Origin": true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post("/register", createCustomerRoute);
