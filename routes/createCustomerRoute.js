@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 
     const response = await client.execute({
       method: "POST",
-      uri: "/airtim1-webshop-i-cms/customers",
+      uri: "/airexpress/customers",
       body: newCustomer,
     });
 

@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
 
     const tokenResponse = await client.execute({
       method: "POST",
-      uri: `/airtim1-webshop-i-cms/customers/email-token`,
+      uri: `/airexpress/customers/email-token`,
       body: data,
     });
 
@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
 
     const verificationResponse = await client.execute({
       method: "POST",
-      uri: `/airtim1-webshop-i-cms/customers/email/confirm`,
+      uri: `/airexpress/customers/email/confirm`,
       body: { tokenValue: emailVerificationToken },
     });
 
