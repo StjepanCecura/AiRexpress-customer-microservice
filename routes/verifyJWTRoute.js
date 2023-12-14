@@ -5,9 +5,8 @@ dotenv.config();
 
 const jwtSecret = process.env.JWT_SECRET;
 
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
   const token = req.body.token;
-  console.log("Verify JWT", token);
 
   try {
     const userData = jwt.verify(token, jwtSecret);
