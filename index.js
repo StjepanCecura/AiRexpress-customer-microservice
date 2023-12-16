@@ -11,7 +11,6 @@ const profileRoute = require("./routes/profileRoute.js");
 const signOutRoute = require("./routes/signOutRoute.js");
 const verifyJWTRoute = require("./routes/verifyJWTRoute.js");
 const addCustomerAddressRoute = require("./routes/addCustomerAddressRoute.js");
-const getCustomerAddressRoute = require("./routes/getCustomerAddressRoute.js");
 const changeCustomerAddressRoute = require("./routes/changeCustomerAddressRoute.js");
 
 dotenv.config();
