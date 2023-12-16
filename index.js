@@ -30,7 +30,6 @@ app.use(express.json());
 
 app.get("/", JWTMiddleware, profileRoute);
 app.get("/sign-out", JWTMiddleware, signOutRoute);
-app.get("/getCustomerAddress", getCustomerAddressRoute);
 
 app.post("/register", createCustomerRoute);
 app.post("/login", loginCustomerRoute);

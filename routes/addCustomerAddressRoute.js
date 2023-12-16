@@ -10,7 +10,6 @@ module.exports = async (req, res) => {
   try {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
-    const email = req.body.email;
     const phoneNumber = req.body.phoneNumber;
     const country = req.body.country;
     const city = req.body.city;
@@ -37,11 +36,20 @@ module.exports = async (req, res) => {
               postalCode,
               city,
               country,
-              phone: phoneNumber,
-              email,
-              firstName,
-              lastName,
             },
+          },
+          {
+            action: "setCustomField",
+            name: "phoneNumber",
+            value: phoneNumber,
+          },
+          {
+            action: "setFirstName",
+            firstName,
+          },
+          {
+            action: "setLastName",
+            lastName,
           },
         ],
       },
