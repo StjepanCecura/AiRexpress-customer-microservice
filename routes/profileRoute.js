@@ -1,5 +1,4 @@
 module.exports = async (req, res) => {
-  console.log(req.userData);
   const userData = {
     id: req.userData.id,
     email: req.userData.email,

@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     const streetName = req.body.streetName;
     const streetNumber = req.body.streetNumber;
 
-    const token = req.cookie.token;
+    const token = req.cookies.token;
     const customerData = jwt.verify(token, jwtSecret);
     const customerId = customerData?.id;
     const version = customerData?.version;
