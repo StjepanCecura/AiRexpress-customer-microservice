@@ -33,10 +33,10 @@ app.get("/sign-out", JWTMiddleware, signOutRoute);
 app.post("/register", createCustomerRoute);
 app.post("/login", loginCustomerRoute);
 app.post("/verifyJWT", verifyJWTRoute);
-app.post("/addCustomerAddress", addCustomerAddressRoute);
+app.post("/addCustomerAddress", JWTMiddleware, addCustomerAddressRoute);
 
 app.put(`/email-verification`, emailVerificationRoute);
-app.put("/changeCustomerAddress", changeCustomerAddressRoute);
+app.put("/changeCustomerAddress", JWTMiddleware, changeCustomerAddressRoute);
 
 app.listen(port, () => {
   console.log(`Customer service on port: ${port}`);
