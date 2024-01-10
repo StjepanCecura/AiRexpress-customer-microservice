@@ -19,9 +19,6 @@ const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
     clientId: clientId,
     clientSecret: clientSecret,
   },
-  scopes: [
-    "manage_customers:airtim1-webshop-i-cms manage_my_profile:airtim1-webshop-i-cms",
-  ],
   fetch,
 });
 
