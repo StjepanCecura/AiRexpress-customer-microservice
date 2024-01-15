@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
       res.status(200).send({ message: "Account deleted!" });
     }
     res.status(401).send({
-      message: `Error while deleting account! ${error}`,
+      message: `Error while deleting account!`,
     });
   } catch (error) {
     console.log(`Error while deleting customer account: ${error}`);
