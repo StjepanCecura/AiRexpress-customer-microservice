@@ -10,7 +10,13 @@ module.exports = async (req, res) => {
       uri: `/airexpress/customers/${customerId}?version=${customerVersion}`,
     });
 
-    res.status(200).send({ message: "Account deleted!" });
+    if (response.statusCode == 200) {
+      res.clearCookie("token");
+      res.status(200).send({ message: "Account deleted!" });
+    }
+    res.status(401).send({
+      message: `Error while deleting account! ${error}`,
+    });
   } catch (error) {
     console.log(`Error while deleting customer account: ${error}`);
     res.status(401).send({
