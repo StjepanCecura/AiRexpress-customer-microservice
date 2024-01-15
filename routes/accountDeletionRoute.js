@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
     if (response.statusCode == 200) {
       res.clearCookie("token");
       res.status(200).send({ success: true, message: "Account deleted!" });
+      return;
     }
     res.status(401).send({
       success: false,
