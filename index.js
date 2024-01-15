@@ -12,6 +12,7 @@ const signOutRoute = require("./routes/signOutRoute.js");
 const verifyJWTRoute = require("./routes/verifyJWTRoute.js");
 const addCustomerAddressRoute = require("./routes/addCustomerAddressRoute.js");
 const changeCustomerAddressRoute = require("./routes/changeCustomerAddressRoute.js");
+const accountDeletionRoute = require("./routes/accountDeletionRoute.js");
 
 dotenv.config();
 
@@ -37,6 +38,8 @@ app.post("/addCustomerAddress", JWTMiddleware, addCustomerAddressRoute);
 
 app.put(`/email-verification`, emailVerificationRoute);
 app.put("/changeCustomerAddress", JWTMiddleware, changeCustomerAddressRoute);
+
+app.delete("/deleteAccount", JWTMiddleware, accountDeletionRoute);
 
 app.listen(port, () => {
   console.log(`Customer service on port: ${port}`);
